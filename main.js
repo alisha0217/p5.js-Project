@@ -1,73 +1,35 @@
+function preload(){
+
+}
+
 function setup(){
-    canvas=createCanvas(640,480);
-    canvas.position(100,150);
-    video=createCapture(VIDEO);
-    video.hide();
+    canvas = createCanvas(400,400);
+    canvas.center();
+    video = createCapture(VIDEO);
+    video.size(400, 400);
+    video.hide(); 
+    poseNet = ml5.poseNet(video, modelLoaded);
+    poseNet.on('pose', gotPoses);
+}
+
+
+function gotPoses(Results){
+    if (Results.length > 0){
+        console.log(Results);
+        console.log("nose x = " + Results[0].pose.nose.x );
+        console.log("nose y = " + Results[0].pose.nose.y );
+    }
+
+}
+
+function modelLoaded(){
+    console.log("poseNet has started");
 }
 
 function draw(){
-
-    image(video, 230,150,220,200);
-
-    
-    fill(155,159,218);
-    stroke(155,159,218)
-    rect(90,420,490,20)
-
-    fill(155,159,218);
-    stroke(155,159,218)
-    rect(85,30,490,20)
-
-
-    fill(155,159,218);
-    stroke(155,159,218)
-    rect(40,30,20,440)
-
-    fill(155,159,218);
-    stroke(155,159,218)
-    rect(590,25,20,440)
-
-
-    fill(168,123,191);
-    stroke(168,123,191)
-    circle(50,50,80)
-
-    fill(92,39,118);
-    stroke(92,39,118)
-    circle(30,30,80)
-
-
-    fill(92,39,118);
-    stroke(92,39,118)
-    circle(30,450,80)
-
-    fill(168,123,191);
-    stroke(168,123,191)
-    circle(50,430,80)
-    
-    
-    fill(168,123,191);
-    stroke(168,123,191)
-    circle(610,430,80)
-    
-    fill(92,39,118);
-    stroke(92,39,118)
-    circle(630,450,80)
-
-
-    fill(92,39,118);
-    stroke(92,39,118)
-    circle(630,30,80)
-    
-    fill(168,123,191);
-    stroke(168,123,191)
-    circle(610,50,80)
-
+    image(video, 0, 0, 400, 400);
 }
 
 function take_snapshot(){
-    save("p5_image.png");
+    save('my_filtered_img.png');
 }
-
-
-
